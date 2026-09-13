@@ -8,7 +8,9 @@ import {
   MapPin,
   Menu,
   Phone,
+  Play,
   X,
+  Youtube,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +21,8 @@ import roadPhoto from "../assets/nles-road-testing.jpg";
 import fieldPhoto from "../assets/nles-field-investigation.jpg";
 import concretePhoto from "../assets/nles-concrete-testing.jpg";
 import compressionPhoto from "../assets/nles-compression-machine.jpg";
+import kawasotiVideo from "../assets/kawasoti-branch.mp4.asset.json";
+import machineVideo from "../assets/machine.mp4.asset.json";
 
 const phone = "+977 985-1121070";
 
@@ -84,6 +88,7 @@ function Index() {
             <a href="#services" className="transition-opacity hover:opacity-70">Services</a>
             <a href="#about" className="transition-opacity hover:opacity-70">About</a>
             <a href="#projects" className="transition-opacity hover:opacity-70">Projects</a>
+            <a href="#media" className="transition-opacity hover:opacity-70">Media</a>
             <a href="#contact" className="transition-opacity hover:opacity-70">Contact</a>
           </nav>
 
@@ -107,6 +112,7 @@ function Index() {
                 ["Services", "#services"],
                 ["About", "#about"],
                 ["Projects", "#projects"],
+                ["Media", "#media"],
                 ["Contact", "#contact"],
               ].map(([label, href]) => (
                 <a key={href} href={href} onClick={() => setMenuOpen(false)} className="flex items-center justify-between py-3 text-base font-medium">
@@ -213,6 +219,43 @@ function Index() {
           </div>
         </section>
 
+        <section id="media" className="scroll-mt-20 border-y border-border bg-surface py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-5 lg:px-10">
+            <div className="mb-10 grid gap-5 lg:grid-cols-2 lg:items-end">
+              <div>
+                <p className="section-kicker">From our facilities</p>
+                <h2 className="mt-4 font-display text-4xl font-semibold leading-tight lg:text-5xl">See the work in motion.</h2>
+              </div>
+              <p className="max-w-lg leading-7 text-muted-foreground lg:justify-self-end">
+                A closer look at our Kawasoti branch and the testing equipment used in day-to-day laboratory work.
+              </p>
+            </div>
+            <div className="grid gap-5 lg:grid-cols-2">
+              <VideoFeature src={kawasotiVideo.url} poster={labPhoto} title="Kawasoti branch" description="A walk-through of the NLES branch facility." />
+              <VideoFeature src={machineVideo.url} poster={compressionPhoto} title="Testing machinery" description="Laboratory equipment in operation." />
+            </div>
+            <a href="https://www.youtube.com/@NationalLabandEngineeringSolut" target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold hover:underline">
+              <Youtube className="size-5 text-accent" /> Visit the NLES YouTube channel <ArrowUpRight className="size-4" />
+            </a>
+          </div>
+        </section>
+
+        <section className="py-20 lg:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
+            <div>
+              <p className="section-kicker">Testing capability</p>
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight">A practical range of laboratory tests.</h2>
+            </div>
+            <div className="grid gap-x-8 border-t border-border sm:grid-cols-2">
+              {["Particle size distribution", "Optimum moisture content (OMC)", "Maximum dry density (MDD)", "California bearing ratio (CBR)", "Los Angeles abrasion (LAA)", "Aggregate impact value (AIV)", "Aggregate crushing value (ACV)", "Liquid & plastic limits", "Flakiness & elongation indices", "Consolidation & direct shear", "Unconfined compression", "Point load testing"].map((test) => (
+                <div key={test} className="flex items-center gap-3 border-b border-border py-4 text-sm font-medium">
+                  <span className="size-1.5 shrink-0 bg-accent" />{test}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="contact" className="scroll-mt-20 border-t border-border bg-surface">
           <div className="mx-auto grid max-w-7xl lg:grid-cols-[1.1fr_0.9fr]">
             <div className="px-5 py-16 lg:px-10 lg:py-24">
@@ -226,7 +269,18 @@ function Index() {
               <ContactRow icon={<MapPin className="size-5" />} label="Visit" value="Bharatpur Metropolitan City–1, Ramnagar, Chitwan, Nepal" href="https://www.google.com/maps/place/National+Lab+and+Engineering+Solution+Pvt.+Ltd/@27.7343509,84.4469473,17z" />
               <ContactRow icon={<Phone className="size-5" />} label="Phone" value="056-599168 · 9801564422 · 9855057582" href="tel:056599168" />
               <ContactRow icon={<Mail className="size-5" />} label="Email" value="nationallab.bharatpur@gmail.com" href="mailto:nationallab.bharatpur@gmail.com" />
+              <ContactRow icon={<ArrowUpRight className="size-5" />} label="Facebook" value="National Lab and Engineering Solution Pvt. Ltd." href="https://www.facebook.com/Nationallab599168" />
             </div>
+          </div>
+          <div className="h-80 border-t border-border lg:h-96">
+            <iframe
+              title="National Lab and Engineering Solution location"
+              src="https://maps.google.com/maps?q=National%20Lab%20and%20Engineering%20Solution%20Pvt.%20Ltd,%20Bharatpur%2044207,%20Chitwan,%20Nepal&t=m&z=10&output=embed&iwloc=near"
+              className="h-full w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </section>
       </main>
@@ -238,6 +292,24 @@ function Index() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function VideoFeature({ src, poster, title, description }: { src: string; poster: string; title: string; description: string }) {
+  return (
+    <article>
+      <div className="relative overflow-hidden bg-ink">
+        <video controls preload="metadata" poster={poster} className="aspect-video w-full object-cover">
+          <source src={src} type="video/mp4" />
+          Your browser does not support embedded video.
+        </video>
+        <span className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 bg-caption px-3 py-2 text-xs font-semibold text-hero-foreground">
+          <Play className="size-3.5 fill-current" /> NLES video
+        </span>
+      </div>
+      <h3 className="mt-4 font-display text-xl font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+    </article>
   );
 }
 
